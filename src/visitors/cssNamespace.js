@@ -8,7 +8,7 @@ import {
   isHelper
 } from 'babel-plugin-styled-components/lib/utils/detectors';
 import postcss from 'postcss';
-import parentSelector from 'postcss-parent-selector';
+// import parentSelector from 'postcss-parent-selector';
 import unnest from 'postcss-nested';
 import safeParser from 'postcss-safe-parser';
 
@@ -93,22 +93,22 @@ export default (path, state) => {
 
   // When the cssNamespace setting starts with a self-reference,
   // we don't need to add a parent selector.
-  const doesPrefixStartsWithSelfReference = cssNamespace.startsWith('&');
+  // const doesPrefixStartsWithSelfReference = cssNamespace.startsWith('&');
   // Add a self-reference if it doesn't exist so we get proper nesting
-  const prefix = doesPrefixStartsWithSelfReference ? cssNamespace : '&';
+  // const prefix = doesPrefixStartsWithSelfReference ? cssNamespace : '&';
 
   // Adding safeparser first helps us try to format any other invalid css we may encounter like
   // using js comments (//) instead of css comments (/*).
   const processors = [safeParser, unnest];
-  if (!doesPrefixStartsWithSelfReference) {
-    processors.push(parentSelector({ selector: cssNamespace }));
-  }
+  // if (!doesPrefixStartsWithSelfReference) {
+  //   processors.push(parentSelector({ selector: cssNamespace }));
+  // }
 
   let formattedCss = null;
   let potentialError = null;
   try {
     formattedCss = postcss(processors).process(
-      `\n${prefix} .test {${originalStyleString}}\n`,
+      `\n${cssNamespace} {${originalStyleString}}\n`,
       { from: undefined }
     ).css;
   } catch (error) {
