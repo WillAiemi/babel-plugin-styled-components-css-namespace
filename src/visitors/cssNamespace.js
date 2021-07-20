@@ -100,7 +100,7 @@ export default (path, state) => {
   // Adding safeparser first helps us try to format any other invalid css we may encounter like
   // using js comments (//) instead of css comments (/*).
   const processors = [safeParser, unnest];
-  if (!doesPrefixStartsWithSelfReference) {
+  if (doesPrefixStartsWithSelfReference) {
     processors.push(parentSelector({ selector: cssNamespace }));
   }
 
