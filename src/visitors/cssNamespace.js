@@ -100,21 +100,15 @@ export default (path, state) => {
   // Adding safeparser first helps us try to format any other invalid css we may encounter like
   // using js comments (//) instead of css comments (/*).
   const processors = [safeParser, unnest];
-  if (doesPrefixStartsWithSelfReference) {
+  if (!doesPrefixStartsWithSelfReference) {
     processors.push(parentSelector({ selector: cssNamespace }));
   }
-
-  console.log(
-    '[TESTE] doesPrefixStartsWithSelfReference',
-    doesPrefixStartsWithSelfReference
-  );
-  console.log('[TESTE] processors', processors);
 
   let formattedCss = null;
   let potentialError = null;
   try {
     formattedCss = postcss(processors).process(
-      `\n${prefix} {${originalStyleString}}\n`,
+      `\n${prefix} .test {${originalStyleString}}\n`,
       { from: undefined }
     ).css;
   } catch (error) {
