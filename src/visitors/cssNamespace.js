@@ -104,6 +104,12 @@ export default (path, state) => {
     processors.push(parentSelector({ selector: cssNamespace }));
   }
 
+  console.log(
+    '[TESTE] doesPrefixStartsWithSelfReference',
+    doesPrefixStartsWithSelfReference
+  );
+  console.log('[TESTE] processors', processors);
+
   let formattedCss = null;
   let potentialError = null;
   try {
