@@ -111,7 +111,7 @@ export default (path, state) => {
       `${cssNamespace} {${originalStyleString}}\n`,
       { from: undefined }
     ).css;
-    formattedCss = `\n.storybook ${formattedCss}`;
+    formattedCss = `\n${formattedCss.substr(0, 2)} ${formattedCss}`;
   } catch (error) {
     potentialError = `There was a problem adding namespaces to this CSS in the file ${
       state.file.opts.filename
