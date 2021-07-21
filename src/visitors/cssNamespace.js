@@ -108,9 +108,10 @@ export default (path, state) => {
   let potentialError = null;
   try {
     formattedCss = postcss(processors).process(
-      `\n${cssNamespace} {${originalStyleString}}\n`,
+      `${cssNamespace} {${originalStyleString}}\n`,
       { from: undefined }
     ).css;
+    formattedCss = `\n.storybook ${formattedCss}`;
   } catch (error) {
     potentialError = `There was a problem adding namespaces to this CSS in the file ${
       state.file.opts.filename
